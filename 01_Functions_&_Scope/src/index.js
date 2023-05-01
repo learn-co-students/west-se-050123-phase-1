@@ -97,7 +97,7 @@ helloWorld()
 
   // ✅ create a blurb() function that accepts a book as an argument and logs a message in the following format:
   // 'Eloquent JavaScript: A Modern Introduction to Programming by Marjin Haverbeke is on sale for $10.00'
-  const book = {
+  const sampleBook = {
     id: 1,
     title: 'Eloquent JavaScript: A Modern Introduction to Programming',
     author: 'Marjin Haverbeke',
@@ -107,7 +107,15 @@ helloWorld()
     imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/51IKycqTPUL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg'
   }
 
-  
+  // console.log(Object.keys(book)[3])
+
+  function blurb(book){
+    const title = book.title
+    const author = book.author
+    const price = formatPrice(book.price)
+    return `${title} by ${author} is on sale for ${price}`
+  }
+  console.log(blurb(sampleBook))
   
 
 // 💡 Difference between Block scope, Function scope, and Global scope
@@ -115,10 +123,18 @@ helloWorld()
 // ✅ create a variable `highestPricedBook`
 
 
-
 // ✅ create a function `findHighestPricedBook` that finds that book and returns it
+let highestPricedBook = inventory[0]
 
-
+function findHighestPricedBook(inventory){
+  for (let i=1; i < inventory.length; i++) {
+    const book = inventory[i]
+    if (highestPricedBook.price < book.price) {
+      highestPricedBook = book
+    }
+  }
+  return highestPricedBook;
+}
 
 // After Break
 
