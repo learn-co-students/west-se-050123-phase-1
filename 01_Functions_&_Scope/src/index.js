@@ -143,19 +143,68 @@ function findHighestPricedBook(inventory){
 // the return value 
 
 // 💡 Practice using callbacks for iteration
+const prices = [23, 41, 9.23, 11.19]
+console.log(prices)
 
+function formatAsCurrency(priceArr, formatterFunction) { // formatAsCurrency = HOF; 
+                                                        //  formatterFunction = callback function
+  for (let i=0; i < priceArr.length; i++) {
+    const currPrice = priceArr[i]
+    const formattedPrice = formatterFunction(currPrice)
+    console.log(formattedPrice)
+    // console.log(formatterFunction(priceArr[i]))
+  }
+}
 
+formatAsCurrency(prices, formatPrice)
+
+// function printBlurbs(){ // 
+//   inventory.forEach(function(book){ // callback as regular function expression
+//     console.log(blurb(book))
+//   })
+// }
+function printBlurbs(){
+  inventory.forEach(book => console.log(blurb(book)))
+}
+printBlurbs()
 
 // ✅ Create an array of the prices of all of the books
+const bookPrices = inventory.map(book => book.price)
+console.log("🚀 ~ file: index.js:172 ~ bookPrices:", bookPrices)
 
 
-
-// ✅ Create an array of simplified book objects
-
+// ✅ Create an array of simplified book objects (title, author, price)
+const simplifiedBooks = inventory.map(book => {
+  return {
+    title: book.title,
+    author: book.author,
+    price: book.price
+  }
+})
 
 
 // ✅ Create an array of strings from the inventory in the following format:
 // 'Eloquent JavaScript: A Modern Introduction to Programming by Marjin Haverbeke is on sale for $10.00'
-
+const allBlurbs = inventory.map(book => blurb(book))
+console.log("🚀 ~ file: index.js:189 ~ allBlurbs:", allBlurbs)
 
 // 💡 When do I use forEach vs map?
+// forEach when I just want to call a function on every element in an array
+// map is when I want to build a new array based on an existing array
+
+function myMap(array, cb) {
+  const newArray = []
+  for (let i=0; i< array.length; i++) {
+    newArray.push(cb(array[i]))
+  }
+  return newArray
+}
+
+const squareMe = x => x * x
+
+const squares = myMap([1, 2, 3, 4], squareMe)
+console.log("🚀 ~ file: index.js:198 ~ squares:", squares)
+
+const squares2 = [5, 6, 7].map(squareMe)
+console.log("🚀 ~ file: index.js:201 ~ squares2:", squares2)
+
