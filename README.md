@@ -7,12 +7,12 @@
 - [ ] Use asynchronous JavaScript to retrieve data
 
 
-| Lecture                          	| Notes 	| Videos 	| Starter 	| Solution 	|
-|----------------------------------	|:-----:	|--------	|---------	|----------	|
-| Functions & Scope                	|       	|        	|         	|          	|
-| DOM Manipulation                 	|       	|        	|         	|          	|
-| DOM Events                       	|       	|        	|         	|          	|
-| Communicating with the Server    	|       	|        	|         	|          	|
-| POST Requests                    	|       	|        	|         	|          	|
-| PATCH & DELETE Requests          	|       	|        	|         	|          	|
-| Communicating with External APIs 	|       	|        	|         	|          	|
+| Lecture                          	| Notes 	| Videos 	| Starter 	| Solution 	| Slides |
+|----------------------------------	|:-----:	|--------	|---------	|----------	| ------ |
+| Functions & Scope                	|       	|        	| [Starter Code](https://github.com/learn-co-students/west-se-050123-phase-1/tree/01_starter_function/01_Functions_%26_Scope)        	|          	|           |
+| DOM Manipulation                 	|       	|        	|         	|          	|           |
+| DOM Events                       	|       	|        	|         	|          	|           |
+| Communicating with the Server    	|       	|        	|         	|          	|           |           
+| POST Requests                    	|       	|        	|         	|          	|           |
+| PATCH & DELETE Requests          	|       	|        	|         	|          	|           |
+| Communicating with External APIs 	|       	|        	|         	|          	|           |
