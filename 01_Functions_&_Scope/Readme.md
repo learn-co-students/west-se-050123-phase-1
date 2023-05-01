@@ -36,7 +36,7 @@ The variable inventory is an array of book objects in index.js. Inventory[0] is 
         }
 ```
 
-- Demo Function Decoration: 
+- Demo Function Delaration: 
     - Declare a function that takes a book as a parameter and returns the book's price formatted to look like currency. Given inventory[0] the return should be '$10.00"
     
 - Demo Function Expressions: 
@@ -71,7 +71,7 @@ The variable inventory is an array of book objects in index.js. Inventory[0] is 
 Functions are like a little program. They consist of a set of statements/tasks and return a value or undefined. 
 
 ```
-// This is a function delcoration 
+// This is a function delaration: 
 // This function is returning the string of 'hi'
 function sayHi() {
     return 'hi'
