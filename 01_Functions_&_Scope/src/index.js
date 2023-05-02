@@ -74,14 +74,14 @@ const inventory = [
 
 // Start here!
 
-function helloWorld() {
+function helloWorld() {  // function declarations
   console.log("Hello, World!")
   return "Hello, world!"
 }
 
-helloWorld()
+helloWorld() // function invocation / calling the function
 
-// function formatPrice(price){
+// function formatPrice(price){  // 'regular' function expression, rewritten below as function statement with arrow function
   //   // return `$${price}`
   //   return '$' + Number.parseFloat(price).toFixed(2)
   // }
@@ -122,9 +122,9 @@ helloWorld()
 
 // ✅ create a variable `highestPricedBook`
 
+let highestPricedBook = inventory[0]
 
 // ✅ create a function `findHighestPricedBook` that finds that book and returns it
-let highestPricedBook = inventory[0]
 
 function findHighestPricedBook(inventory){
   for (let i=1; i < inventory.length; i++) {
