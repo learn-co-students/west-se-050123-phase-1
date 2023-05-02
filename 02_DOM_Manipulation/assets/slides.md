@@ -6,6 +6,7 @@ slideNumber: false
 title: "P1L2 - DOM Manipulation slides"
 height: 900
 width: 1400
+css: ["https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"]
 ---
 
 # DOM Manipulation
