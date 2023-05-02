@@ -24,7 +24,27 @@ function renderFooter(){
 //  2. Pass the forEach an anonymous callback that takes the inventory data and creates an li, with an h3 tag, 2 p tags, and image tag.
 // 3. Add the cardData content to the tags.
 // 4. Append li to the DOM through the ul with the id of book-list
+document.querySelector("#book-list").innerHTML = ""
 
+bookStore.inventory.forEach(bookData => {
+  const li = document.createElement('li')
+  const h3 = document.createElement('h3')
+  const pAuthor = document.createElement('p')
+  const pPrice = document.createElement('p')
+  const img = document.createElement('img')
+  const btn = document.createElement('button')
+
+  h3.textContent = bookData.title
+  pAuthor.textContent = bookData.author
+  pPrice.textContent = formatPrice(bookData.price)
+  btn.textContent = "Delete"
+
+  li.className = 'list-li'
+  img.src = bookData.imageUrl
+
+  li.append(h3, pAuthor, pPrice, img, btn)
+  document.querySelector("#book-list").append(li)
+})
 
 //* Refactor to make the anonymous callback its own function so it can be reused later. 
 // create a function called renderBook(book)
