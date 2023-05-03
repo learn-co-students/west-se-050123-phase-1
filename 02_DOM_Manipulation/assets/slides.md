@@ -60,6 +60,41 @@ https://techcrunch.com/wp-content/uploads/2007/10/picture-242.png
 
 ---
 
+#### The Breakdown
+
+<div style="display: flex; flex-direction: row">
+  <div style="width: 40%">
+    
+   <img src="./zoo-keepr.png" alt="zookeeper project page" />
+
+    
+  </div>
+  <div style="width: 60%; background-color: ivory">
+
+   <img src="./zookeepr-dom-tree.png" alt="zookeeper dom tree diagram" style="width: 120%; height: 110%" />
+
+  </div>
+</div>
+
+---
+
+#### The Breakdown
+
+<div style="display: flex; flex-direction: row">
+  <div style="width: 50%">
+    
+   <img src="./zookeepr-html.jpg" alt="zookeeper html" style="width: 120%; height: 120%" />
+
+    
+  </div>
+  <div style="width: 50%; background-color: ivory">
+
+   <img src="./zookeepr-dom-tree.png" alt="zookeeper dom tree diagram" style="width: 120%; height: 110%" />
+
+  </div>
+
+---
+
 #### Tasks
 
 -  Select single DOM elements with:
