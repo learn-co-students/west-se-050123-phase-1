@@ -26,7 +26,42 @@ function renderFooter(){
 // 4. Append li to the DOM through the ul with the id of book-list
 document.querySelector("#book-list").innerHTML = ""
 
-bookStore.inventory.forEach(bookData => {
+// bookStore.inventory.forEach(bookData => {
+//   const li = document.createElement('li')
+//   const h3 = document.createElement('h3')
+//   const pAuthor = document.createElement('p')
+//   const pPrice = document.createElement('p')
+//   const img = document.createElement('img')
+//   const btn = document.createElement('button')
+
+//   h3.textContent = bookData.title
+//   pAuthor.textContent = bookData.author
+//   pPrice.textContent = formatPrice(bookData.price)
+//   btn.textContent = "Delete"
+
+//   li.className = 'list-li'
+//   img.src = bookData.imageUrl
+
+//   li.append(h3, pAuthor, pPrice, img, btn)
+//   document.querySelector("#book-list").append(li)
+// })
+
+//* Refactor to make the anonymous callback its own function so it can be reused later. 
+// create a function called renderBook(book)
+// it will take a book object as an argument
+// and create the html struture for rendering 
+// that book and insert it into our webpage!
+
+// function renderBook(book) {
+// should create an li element that looks something like this:
+  // <li class="list-li">
+  //   <h3>Eloquent JavaScript : A Modern Introduction to Programming</h3>
+  //   <p>Marjin Haverbeke</p>
+  //   <p>$10.00</p>
+  //   <img src="https://images-na.ssl-images-amazon.com/images/I/51IKycqTPUL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg" alt="Eloquent JavaScript cover"/>
+  //   <button>Delete</button>
+  // </li>
+function renderBook(bookData){
   const li = document.createElement('li')
   const h3 = document.createElement('h3')
   const pAuthor = document.createElement('p')
@@ -44,24 +79,10 @@ bookStore.inventory.forEach(bookData => {
 
   li.append(h3, pAuthor, pPrice, img, btn)
   document.querySelector("#book-list").append(li)
-})
-
-//* Refactor to make the anonymous callback its own function so it can be reused later. 
-// create a function called renderBook(book)
-// it will take a book object as an argument
-// and create the html struture for rendering 
-// that book and insert it into our webpage!
-
-// function renderBook(book) {
-// should create an li element that looks something like this:
-  // <li class="list-li">
-  //   <h3>Eloquent JavaScript : A Modern Introduction to Programming</h3>
-  //   <p>Marjin Haverbeke</p>
-  //   <p>$10.00</p>
-  //   <img src="https://images-na.ssl-images-amazon.com/images/I/51IKycqTPUL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg" alt="Eloquent JavaScript cover"/>
-  //   <button>Delete</button>
-  // </li>
+}
 
   //* Organize function calls
   renderHeader()
   renderFooter()
+  // bookStore.inventory.forEach(bookData => renderBook(bookData))
+  bookStore.inventory.forEach(renderBook)
