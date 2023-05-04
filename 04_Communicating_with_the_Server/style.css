@@ -12,6 +12,10 @@ body {
   overflow: hidden;
 }
 
+.grey {
+  color: grey;
+}
+
 header {
   background-image: url("assets/books.png");
   height: 10%;
@@ -102,6 +106,10 @@ input[type=submit] {
   padding: 3px;
   font-size: large;
   font-weight: bold;
+}
+
+button, [type=submit] {
+  cursor: pointer;
 }
 
 form {
