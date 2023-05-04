@@ -1,5 +1,16 @@
+// document.addEventListener('DOMContentLoaded', () => { // this was the way it was done before <script defer />
+// })
+
+//////////////////////////////////////
+// Select elements (that will be referenced frequently)
+//////////////////////////////////////
 const bookForm = document.querySelector('#book-form');
 const toggleBookFormButton = document.querySelector('#toggleForm')
+
+
+//////////////////////////////////////
+// Helper functions
+//////////////////////////////////////
 
 function formatPrice(price) {
   return '$' + Number.parseFloat(price).toFixed(2);
@@ -83,6 +94,10 @@ function renderBook(book) {
   document.querySelector('#book-list').append(li);
 }
 
+//////////////////////////////////////
+// Event listeners & handlers  (Behavior => (Data) => Display)
+//////////////////////////////////////
+
 // hide and show the book form upon clicking the toggleBookFormButton
 toggleBookFormButton.addEventListener('click', toggleBookForm)
 
@@ -94,6 +109,15 @@ function toggleBookForm() {
     toggleBookFormButton.textContent = "Hide Book Form"
   }
 }
+
+// If we want to be able to hide the form on typing escape
+window.addEventListener('keydown', (e) => {
+  // console.log(e.code)
+  const isVisible = !bookForm.classList.contains('collapsed')
+  if (isVisible && e.code === "Escape") {
+    toggleBookForm()
+  }
+})
 
 // listen for form submission and handle submit by adding new book to page
 bookForm.addEventListener('submit', (e) => {
