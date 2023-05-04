@@ -1,6 +1,3 @@
-// document.addEventListener('DOMContentLoaded', () => { // this was the way it was done before <script defer />
-// })
-
 //////////////////////////////////////
 // Select elements (that will be referenced frequently)
 //////////////////////////////////////
@@ -25,7 +22,7 @@ function fillIn(form, data){
 }
 
 fillIn(bookForm, {
-  title: 'Designing Data-intensive Applications',
+  title: 'Designing Data-Intensive Applications',
   author: "Martin Kleppmann",
   price: 22,
   inventory: 1,
@@ -47,49 +44,38 @@ function renderFooter(bookStore) {
   document.querySelector('#address').textContent = bookStore.address;
 }
 
-// function: renderBook(book)
-// --------------------------
-// accepts a book object as an argument and creates
-// an li something like this:
-// <li class="list-li">
-//   <h3>Eloquent JavaScript</h3>
-//   <p>Marjin Haverbeke</p>
-//   <p>$10.00</p>
-//   <img src="https://images-na.ssl-images-amazon.com/images/I/51IKycqTPUL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg" alt="Eloquent JavaScript cover"/>
-// </li>
 // appends the li to the ul#book-list in the DOM
 function renderBook(book) {
     
   const li = document.createElement('li');
-  li.className = 'list-li';
-  
   const h3 = document.createElement('h3');
-  h3.textContent = book.title;
-  li.append(h3);
-
   const pAuthor = document.createElement('p');
-  pAuthor.textContent = book.author;
-  li.append(pAuthor);
-  
   const pPrice = document.createElement('p');
-  pPrice.textContent = formatPrice(book.price);
-  li.append(pPrice);
-  
+  const pStock = document.createElement('p');
   const img = document.createElement('img');
+  const btn = document.createElement('button');
+  
+  li.className = 'list-li';
+  h3.textContent = book.title;
+  pAuthor.textContent = book.author;
+  pPrice.textContent = formatPrice(book.price);
+  pStock.className = 'grey'
+  if (book.inventory === 0) {
+    pStock.textContent = "Out of Stock"
+  } else if (book.inventory < 3) {
+    pStock.textContent = "Only a few left!"
+  } else {
+    pStock.textContent = "In stock"
+  }
   img.src = book.imageUrl;
   img.alt = `${book.title} cover`;
   img.title = `${book.title} cover`;
-  li.append(img);
-
-  const btn = document.createElement('button');
+  
   btn.textContent = 'Delete';
 
-  btn.addEventListener('click', () => {
-    alert('Book was deleted!')
-    li.remove()
-  })
+  btn.addEventListener('click', () => li.remove())
 
-  li.append(btn);
+  li.append(h3, pAuthor, pPrice, pStock, img, btn);
 
   document.querySelector('#book-list').append(li);
 }
@@ -136,12 +122,13 @@ bookForm.addEventListener('submit', (e) => {
   const newBook = {
       title: e.target.title.value,
       author: e.target.author.value,
-      price: e.target.price.value,
-      reviews: [],
-      inventory: e.target.inventory.value,
-      imageUrl: e.target.imageUrl.value
+      price: parseFloat(e.target.price.value),
+      inventory: parseInt(e.target.inventory.value),
+      imageUrl: e.target.imageUrl.value,
+      reviews: []
   }
-  
+  e.target.reset()
+  toggleBookForm()
   renderBook(newBook)
 })
 

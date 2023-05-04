@@ -12,6 +12,10 @@ body {
   overflow: hidden;
 }
 
+.grey {
+  color: grey;
+}
+
 header {
   background-image: url("assets/books.png");
   height: 10%;
