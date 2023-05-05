@@ -16,6 +16,15 @@ body {
   color: grey;
 }
 
+.error {
+  background-color: rgb(231, 71, 71);
+  color: white;
+  text-align: center;
+  font-family: Verdana;
+  font-style: italic;
+  padding: 0.5em 0.5em;
+}
+
 header {
   background-image: url("assets/books.png");
   height: 10%;

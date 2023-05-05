@@ -72,12 +72,20 @@ function renderBook(book) {
   img.title = `${book.title} cover`;
   
   btn.textContent = 'Delete';
-
+  
   btn.addEventListener('click', () => li.remove())
-
+  
   li.append(h3, pAuthor, pPrice, pStock, img, btn);
-
+  
   document.querySelector('#book-list').append(li);
+}
+
+function renderError(error) {
+  console.log("🚀 ~ file: index.js:85 ~ renderError ~ error:", error.message)
+  const errDiv = document.createElement('div');
+  errDiv.classList.add('error')
+  errDiv.textContent = error.message
+  document.querySelector('main').prepend(errDiv)
 }
 
 //////////////////////////////////////
@@ -111,32 +119,72 @@ bookForm.addEventListener('submit', (e) => {
   console.dir(e.target)
   // renderBook expects and argument with the following shape:
   // {
-  //   id:1,
-  //   title: 'Eloquent JavaScript: A Modern Introduction to Programming',
-  //   author: 'Marjin Haverbeke',
-  //   price: 10.00,
-  //   reviews: [{userID: 1, content:'Good book, but not great for new coders'}],
-  //   inventory: 10,
-  //   imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/51IKycqTPUL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg',
-  // }
-  const newBook = {
+    //   id:1,
+    //   title: 'Eloquent JavaScript: A Modern Introduction to Programming',
+    //   author: 'Marjin Haverbeke',
+    //   price: 10.00,
+    //   reviews: [{userID: 1, content:'Good book, but not great for new coders'}],
+    //   inventory: 10,
+    //   imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/51IKycqTPUL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg',
+    // }
+    const newBook = {
       title: e.target.title.value,
       author: e.target.author.value,
       price: parseFloat(e.target.price.value),
       inventory: parseInt(e.target.inventory.value),
       imageUrl: e.target.imageUrl.value,
       reviews: []
-  }
-  e.target.reset()
-  toggleBookForm()
-  renderBook(newBook)
-})
+    }
+    e.target.reset()
+    toggleBookForm()
+    renderBook(newBook)
+  })
+  
+  ////////////////////////////////////////////
+  // call render functions to populate the DOM
+  ////////////////////////////////////////////
+  
+// renderHeader(bookStore);
+// renderFooter(bookStore);
+// bookStore.inventory.forEach(renderBook);
 
-////////////////////////////////////////////
-// call render functions to populate the DOM
-////////////////////////////////////////////
 
-renderHeader(bookStore);
-renderFooter(bookStore);
-bookStore.inventory.forEach(renderBook);
+/////////////////////////////////////////////////////////////////////
+// Communicating with the Server (via .fetch) => Then update the DOM
+////////////////////////////////////////////////////////////////////
 
+
+// const request = fetch('http://localhost:3000/books')
+// console.log("🚀 ~ file: index.js:151 ~ request:", request)
+// request
+//   .then(response => {
+//     console.log(response)
+//     return response.json()
+//   })
+//   .then(data => console.log(data))
+
+fetch("http://localhost:3000/books")
+  .then(res => res.json())
+  .then(booksArr => {
+    console.log(booksArr)
+    booksArr.forEach(book => renderBook(book))
+    // booksArr.forEach(renderBook) // shorthand for the line above
+  })
+  .catch(error => { // .catch only rescuses from a request that gets no response
+    console.error(error) // if there's a response, even with status in 400-500s
+    renderError(error) // it won't be handled here
+  })
+
+fetch("http://localhost:3000/stores/3")
+  .then(res => {
+    if (res.ok) { // any status code outside of 200-300s will make .ok falsy
+      return res.json()
+    } else {
+      throw new Error(res.statusText) // raise a custom error to trigger .catch
+    }
+  })
+  .then((bookStore) => {
+    renderHeader(bookStore);
+    renderFooter(bookStore);
+  })
+  .catch(renderError)
