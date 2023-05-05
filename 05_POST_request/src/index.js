@@ -1,3 +1,9 @@
+const toggleBookFormButton = document.querySelector('#toggleBookForm');
+const bookForm = document.querySelector('#book-form');
+const toggleStoreFormButton = document.querySelector('#toggleStoreForm');
+const storeForm = document.querySelector('#store-form');
+const storeSelector = document.querySelector('#store-selector');
+
 //////////////////////////////////////////////////////////
 // Fetch Data & Call render functions to populate the DOM
 //////////////////////////////////////////////////////////
@@ -52,7 +58,6 @@ function renderStoreSelectionOptions(stores) {
   })
 }
 
-const storeSelector = document.querySelector('#store-selector');
 
 function addSelectOptionForStore(store) {
   const option = document.createElement('option');
@@ -111,6 +116,7 @@ function renderBook(book) {
 
   li.append(h3, pAuthor, pPrice, pStock, img, btn);
   document.querySelector('#book-list').append(li);
+  return li
 }
 
 function renderError(error) {
@@ -151,10 +157,6 @@ function fillIn(form, data) {
 
 // UI Events
 ////////////////////////////////////////////////////////////////
-const toggleBookFormButton = document.querySelector('#toggleBookForm');
-const bookForm = document.querySelector('#book-form');
-const toggleStoreFormButton = document.querySelector('#toggleStoreForm');
-const storeForm = document.querySelector('#store-form');
 
 function toggleBookForm() {
   const bookFormHidden = bookForm.classList.toggle('collapsed');
@@ -217,10 +219,61 @@ bookForm.addEventListener('submit', (e) => {
     imageUrl: e.target.imageUrl.value
   }
   // pass the info as an argument to renderBook for display!
-  renderBook(book);
   // 1. Add the ability to perist the book to the database when the form is submitted. When this works, we should still see the book that is added to the DOM on submission when we refresh the page.
+  
+  // optimistic rendering
+  // const li = renderBook(book);
+  // li.classList.add('loading')
+  // const config = {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify(book)
+  // }
+  // fetch("http://localhost:3000/books", config)
+  //   .then(res => {
+  //       if (res.ok) {
+  //         li.classList.remove('loading')
+  //       }
+  //     })
+  //   .catch(error => {
+  //       li.remove()
+  //       renderError("Not able to save book")
+  //     })
 
+  // pessimistic rendering
+  const config = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(book)
+    }
+  fetch("http://localhost:3000/books", config)
+    .then(res => {
+      if (res.ok){
+        return res.json()
+      } else {
+        throw (res.statusText)
+      }
+
+    })
+    .then(bookObj => {
+      renderBook(bookObj)
+    })
+    .catch(renderError)
+
+  toggleBookForm()
   e.target.reset();
+})
+
+fillIn(bookForm, {
+  title: "Designing Data-Intenseive Applications",
+  author: "Martin Kleppmann",
+  price: 22.20,
+  imageUrl: 'https://m.media-amazon.com/images/I/51ZSpMl1-LL._SX379_BO1,204,203,200_.jpg',
+  inventory: 1
 })
 
 // 2. Hook up the new Store form so it that it works to add a new store to our database and also to the DOM (as an option within the select tag)

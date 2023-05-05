@@ -133,3 +133,7 @@ footer {
   background: lightcoral;
   padding: 20px;
 }
+
+.loading {
+  opacity: 0.5;
+}
