@@ -66,6 +66,7 @@ function addSelectOptionForStore(store) {
   // the options textContent will be what the user sees when choosing an option
   option.textContent = store.name;
   storeSelector.append(option);
+  return option
 }
 
 // function: renderBook(book)
@@ -277,6 +278,50 @@ fillIn(bookForm, {
 })
 
 // 2. Hook up the new Store form so it that it works to add a new store to our database and also to the DOM (as an option within the select tag)
+
+storeForm.addEventListener('submit', (e) => {
+  e.preventDefault()
+  
+  const newStore = {
+    name: e.target.name.value,
+    location: e.target.location.value,
+    number: e.target.number.value,
+    address: e.target.address.value,
+    hours: e.target.hours.value
+  }
+  console.log("🚀 ~ file: index.js:291 ~ storeForm.addEventListener ~ newStore:", newStore)
+
+  // fetch + optimistic rendering
+  // const option = addSelectOptionForStore(newStore)
+  const config = {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newStore)
+  }
+  fetch('http://localhost:3000/stores', config)
+    .then(res => res.json())
+    .then(newStore => {
+      option.value = newStore.id // add missing value to the option tag, so fetch will work
+                                // when it's selected
+    })
+
+  // // pessimistic
+  // fetch('http://localhost:3000/stores', config)
+  //   .then(r => r.json())
+  //   .then(newStore => {
+  //     addSelectOptionForStore(newStore) // we'll already have the id in the store when we do the DOM update
+  //   })
+
+  // using our helper function with POST boilerplate already written
+  // postJSON('http://localhost:3000/stores', newStore)
+  //   .then(addSelectOptionForStore)
+  //   .catch(renderError)
+
+  toggleStoreForm()
+  storeForm.reset()
+})
 
 // we're filling in the storeForm with some data
 // for a new store programatically so we don't 
